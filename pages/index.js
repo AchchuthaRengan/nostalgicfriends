@@ -16,43 +16,46 @@ export default function Home() {
       .then(setAccounts);
   };
 
-  //funchandlepurchase - purchase
-  const handlePurchase = () => {
-
-    handleConnect();
-
+  //funccheckaccess - user check
+  const checkAccess = () => {
     if (accounts.length > 0) {
-
-      try{
-        const transaction = contract.methods.handlePurchase().send({
-          from:accounts[0],
-          valur:web3.utils.toWei("0.02","ether")
-        });
-        contract.methods
+      contract.methods
         .handleCheckUser()
         .call({ from: accounts[0] })
         .then(setHasAccess);
-        contract.methods.checkSales().call().then(setCanBuy);
-        contract.methods.totSales().call().then(setTotSales);
-      }
-      catch(e)
-      {
-        alert(e);
-      }
-      
     } else {
       setHasAccess(false);
+    }
+  };
+
+  //funchandlecanbuy - permission user
+  const handleCanBuy = async () => {
+    contract.methods.checkSales().call().then(setCanBuy);
+    contract.methods.totSales().call().then(setTotSales);
+  };
+
+  //funchandlepurchase - purchase
+  const handlePurchase = () => {
+    if (accounts.length > 0) {
+      try {
+        const transaction = contract.methods.handlePurchase().send({
+          from: accounts[0],
+          valur: web3.utils.toWei("0.02", "ether"),
+        });
+        checkAccess();
+        handleCanBuy();
+      } catch (e) {
+        alert(e.message);
+      }
+    } else {
       alert("Something Went Wrong");
     }
-
-   
-
   };
 
   return (
     <>
       <main>
-        <Hero handleConnect={handleConnect} handlePurchase={handlePurchase}/>
+        <Hero handleConnect={handleConnect} handlePurchase={handlePurchase} />
       </main>
     </>
   );
