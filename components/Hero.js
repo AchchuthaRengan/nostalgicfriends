@@ -1,3 +1,4 @@
+import Button from './Button';
 import NavBar from './NavBar';
 const Hero = () => {
   return (
@@ -59,7 +60,7 @@ const Hero = () => {
                 India
               </p>
               <div className="mt-10 flex items-center justify-center gap-x-6">
-                {/* Button to Buy */}
+                <Button/>
                 <a
                   href="https://nostalgicfriends.gq/"
                   target={"_blank"}
