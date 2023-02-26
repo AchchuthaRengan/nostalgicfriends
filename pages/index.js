@@ -1,6 +1,6 @@
 //import Header from "@/components/Header";
 import Hero from "@/components/Hero";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { contract, web3 } from "../lib/web3";
 
 export default function Home() {
@@ -36,7 +36,6 @@ export default function Home() {
 
   //funchandlepurchase - purchase
   const handlePurchase = () => {
-    handleConnect();
     if (accounts.length > 0) {
       try {
         const transaction = contract.methods.handlePurchase().send({
@@ -53,10 +52,52 @@ export default function Home() {
     }
   };
 
+  //funchandledownload - download file
+  const handleDownload = async function () {
+    if (accounts.length > 0) {
+      //sign to approve the contract and download the product
+      const signature = await web3.eth.personal.sign(
+        successMessage,
+        accounts[0]
+      );
+      try {
+        const request = await fetch("/api/download", {
+          method: "POST",
+          body: JSON.stringify({ signature }),
+        });
+
+        const json = await request.json();
+        window.location.href = json.url;
+      } catch (e) {
+        alert("Something Went Wrong :(");
+      }
+    } else {
+      alert("Oops!, you must be logged in :(");
+    }
+  };
+
+  useEffect(() => {
+    window.ethereum.request({ method: "eth_accounts" }).then(setAccounts);
+    window.ethereum.on("accountsChanged", setAccounts);
+  }, []);
+
+  useEffect(() => {
+    checkAccess();
+    handleCanBuy();
+  }, [accounts]);
+
   return (
     <>
       <main>
-        <Hero handleConnect={handleConnect} handlePurchase={handlePurchase} />
+        <Hero
+          accounts={accounts}
+          handleConnect={handleConnect}
+          handlePurchase={handlePurchase}
+          hasAccess={hasAccess}
+          handleDownload={handleDownload}
+          totSales={totSales}
+          canBuy={canBuy}
+        />
       </main>
     </>
   );

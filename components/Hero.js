@@ -1,5 +1,5 @@
-import Button from './Button';
-import NavBar from './NavBar';
+import Button from "./Button";
+import NavBar from "./NavBar";
 const Hero = (props) => {
   return (
     <div className="isolate bg-white">
@@ -60,7 +60,15 @@ const Hero = (props) => {
                 India
               </p>
               <div className="mt-10 flex items-center justify-center gap-x-6">
-                <Button handleConnect={props.handleConnect} handlePurchase={props.handlePurchase}/>
+                <Button
+                  accounts={props.accounts}
+                  handleConnect={props.handleConnect}
+                  handlePurchase={props.handlePurchase}
+                  hasAccess={props.hasAccess}
+                  handleDownload={props.handleDownload}
+                  totSales={props.totSales}
+                  canBuy={props.canBuy}
+                />
                 <a
                   href="https://nostalgicfriends.gq/"
                   target={"_blank"}
