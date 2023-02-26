@@ -3,8 +3,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
 html,
 body {
     padding: 0;
@@ -15,4 +13,54 @@ body {
     color: rgb(21, 20, 19);
     text-align: center;
     line-height: 5em;
+}
+
+main {
+    max-height: 100vh;
+    height: 100vh;
+}
+
+@supports (-webkit-background-clip: text) {
+    h1 {
+        color: rgb(0, 10, 10);
+        background-position: top center;
+        background-size: cover;
+    }
+}
+
+@media (max-width: 1120px) {
+    main {
+        grid-template-columns: 1fr 400px;
+    }
+
+    h1 {
+        font-size: 40px;
+    }    
+}
+
+@media (max-width: 960px) {
+    body {
+        font-size: 16px;
+    }
+
+    h1 {
+        font-size: 32px;
+    }
+
+    button {
+        font-size: 16px;
+        width: 75%;
+        background-size: cover;
+    }    
+}
+
+@media (max-width: 720px) {
+    main {
+        grid-template-columns: 1fr;
+        grid-template-rows: none;
+    }
+
+    button {
+        width: 75%;
+    }    
 }
