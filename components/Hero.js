@@ -1,6 +1,6 @@
 import Button from './Button';
 import NavBar from './NavBar';
-const Hero = () => {
+const Hero = (props) => {
   return (
     <div className="isolate bg-white">
       <div className="absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]">
@@ -60,7 +60,7 @@ const Hero = () => {
                 India
               </p>
               <div className="mt-10 flex items-center justify-center gap-x-6">
-                <Button/>
+                <Button handleConnect={props.handleConnect}/>
                 <a
                   href="https://nostalgicfriends.gq/"
                   target={"_blank"}
