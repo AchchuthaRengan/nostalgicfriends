@@ -25,7 +25,7 @@ export default async function handler(req, res) {
       .call({ from: account })
       .then(function (data) {
         if (data) {
-          ok(res);
+          handleDownload(res);
         } else {
           handleError(res);
         }
@@ -34,5 +34,5 @@ export default async function handler(req, res) {
   } catch (e) {
     handleError(e);
   }
-  ok(res);
+  handleDownload(res);
 }

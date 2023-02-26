@@ -7,20 +7,17 @@ contract NostalgicFriends {
   uint public totSales;
   uint public maxSales;
 
-  //address
+  //wallet
   address public creator;
   address public donation;
 
   //typeconv
-  mapping (address => bool) sales;
-
+  mapping (address=>bool) sales;
 
   constructor() {
-
-    //initiation
     totSales = 0;
     maxSales = 100;
-    
+    creator = msg.sender;
     //The Giving Block Company's brain tumor society Inc.
     donation = 0x73cd39c255F9FcB641b81060115F9Ee50b35322a;
 
@@ -29,19 +26,19 @@ contract NostalgicFriends {
     //donation = 0xFFB18fDb79Ce35799d82D6d3C3CFE29f81BF14d4;
   }
 
-  //funcchecksales - confirmation - readonly
-  function checkSales() public view returns (bool){
+  //funcchecksales - readonly
+  function checkSales() public view returns (bool) {
     return totSales < maxSales;
   }
 
-  //funchandlecheckuser - Information - readonly
-  function handleCheckUser() public view returns (bool){
+  //funccheckuser - readonly
+  function handleCheckUser() public view returns (bool) {
     return sales[msg.sender];
   }
 
-  //funchandlepurchase - Transaction - payable
+  //funcpurchase - payable
   function handlePurchase() public payable returns (bool) {
-    //validations
+    //conditions
 
     //checking for product
     require(checkSales() == true, "Oops!, Can't do that");
@@ -50,23 +47,14 @@ contract NostalgicFriends {
     //Checking for existing buyer
     require(handleCheckUser() == false, "Sorry!, You can buy it only once!");
 
-    //spilting
-
-    //creator - 70%
+    //Spliting
     payable(creator).transfer(msg.value * 70 / 100);
-    //donation - 30%
     payable(donation).transfer(msg.value * 30 / 100);
-
-    //setup for buyer to buy once
+    
     sales[msg.sender] = true;
 
-    //increment for count
     totSales = totSales + 1;
-
     return true;
-
   }
-
-
 
 }
