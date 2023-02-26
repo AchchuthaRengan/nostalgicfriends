@@ -60,7 +60,7 @@ const Hero = (props) => {
                 India
               </p>
               <div className="mt-10 flex items-center justify-center gap-x-6">
-                <Button handleConnect={props.handleConnect}/>
+                <Button handleConnect={props.handleConnect} handlePurchase={props.handlePurchase}/>
                 <a
                   href="https://nostalgicfriends.gq/"
                   target={"_blank"}
