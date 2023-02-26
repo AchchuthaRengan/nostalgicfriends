@@ -1,3 +1,12 @@
+# Nostalgic Friends DApp
+
+## This Project is constructed using
+1. Next js
+2. Tailwind CSS
+3. Solidity - Contracts
+4. Web3 - Interactions and Transactions
+5. Truffle and Ganache - Local Deployment and Testing of Contract
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
