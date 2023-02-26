@@ -20,7 +20,6 @@ contract NostalgicFriends {
     creator = msg.sender;
     //The Giving Block Company's brain tumor society Inc.
     donation = 0x73cd39c255F9FcB641b81060115F9Ee50b35322a;
-
     //For Testing - Ganache
     //creator = 0x0BDa6E6407985aE34C54dDa2a9B594c1E6C8548D;
     //donation = 0xFFB18fDb79Ce35799d82D6d3C3CFE29f81BF14d4;
@@ -47,7 +46,7 @@ contract NostalgicFriends {
     //Checking for existing buyer
     require(handleCheckUser() == false, "Sorry!, You can buy it only once!");
 
-    //Spliting
+    //Splting
     payable(creator).transfer(msg.value * 70 / 100);
     payable(donation).transfer(msg.value * 30 / 100);
     

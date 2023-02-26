@@ -1,6 +1,7 @@
 import Button from "./Button";
 import NavBar from "./NavBar";
-const Hero = (props) => {
+
+const Hero = ({ accounts, connect, buy, canBuy, hasAccess, download,totalSales }) => {
   return (
     <div className="isolate bg-white">
       <div className="absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]">
@@ -29,10 +30,10 @@ const Hero = (props) => {
         </svg>
       </div>
       <NavBar />
-      <main>
-        <div className="relative px-6 lg:px-8">
-          <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
-            <div className="hidden sm:mb-8 sm:flex sm:justify-center">
+      <main>      
+        <div className="relative px-6 lg:px-8">        
+          <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">          
+            <div className="hidden sm:mb-8 sm:flex sm:justify-center">            
               <div className="relative rounded-full py-1 px-3 text-sm leading-6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
                 Phase 1 is Live on Opensea -{" "}
                 <a
@@ -42,16 +43,15 @@ const Hero = (props) => {
                 >
                   <span className="absolute inset-0" aria-hidden="true"></span>
                   Radios <span aria-hidden="true">&rarr;</span>
-                </a>
-              </div>
-            </div>
+                </a>                
+              </div>              
+            </div>            
             <div className="text-center">
               <h1 className="text-4xl font-bold tracking-normal text-gray-900 sm:text-6xl leading-10">
-                Join Nostalgic Friends
-              </h1>
-              <h2 className="text-2xl font-bold tracking-normal pt-4 text-gray-900 sm:text-2xl leading-10">
-                0 / 100 sold
-              </h2>
+                {hasAccess ? "We are Nostalgic Friends " : "Join Nostalgic Friends" }
+                {console.log("has access : " +  hasAccess)}
+              </h1>              
+              <h2 className="text-2xl font-bold tracking-normal pt-4 text-gray-900 sm:text-2xl leading-10">{totalSales} / 100 sold</h2>
               <p className="mt-6 text-lg leading-8 text-gray-600">
                 Available over 10,000 NFTs. Released on regular intervals.
               </p>
@@ -61,13 +61,12 @@ const Hero = (props) => {
               </p>
               <div className="mt-10 flex items-center justify-center gap-x-6">
                 <Button
-                  accounts={props.accounts}
-                  handleConnect={props.handleConnect}
-                  handlePurchase={props.handlePurchase}
-                  hasAccess={props.hasAccess}
-                  handleDownload={props.handleDownload}
-                  totSales={props.totSales}
-                  canBuy={props.canBuy}
+                  accounts={accounts}
+                  connect={connect}
+                  buy={buy}
+                  canBuy={canBuy}
+                  hasAccess={hasAccess}
+                  download={download}
                 />
                 <a
                   href="https://nostalgicfriends.gq/"
@@ -110,5 +109,4 @@ const Hero = (props) => {
     </div>
   );
 };
-
 export default Hero;

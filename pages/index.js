@@ -1,23 +1,23 @@
-//import Header from "@/components/Header";
-import Hero from "@/components/Hero";
-import { useEffect, useState } from "react";
-import { contract, web3 } from "../lib/web3";
+import Header from "../components/Header";
+import { useState, useEffect } from "react";
+import { web3, contract, successMessage } from "../lib/web3";
+import Hero from "components/Hero";
 
 export default function Home() {
   const [accounts, setAccounts] = useState([]);
   const [canBuy, setCanBuy] = useState(false);
-  const [totSales, setTotSales] = useState(0);
+  const [totalSales, setTotalSales] = useState(0);
   const [hasAccess, setHasAccess] = useState(false);
 
   //funchandleconnect - wallet connection
-  const handleConnect = () => {
+  const handleConnect = function () {
     window.ethereum
       .request({ method: "eth_requestAccounts" })
       .then(setAccounts);
   };
 
   //funccheckaccess - user check
-  const checkAccess = () => {
+  const checkAccess = function () {
     if (accounts.length > 0) {
       contract.methods
         .handleCheckUser()
@@ -28,27 +28,27 @@ export default function Home() {
     }
   };
 
-  //funchandlecanbuy - permission user
-  const handleCanBuy = async () => {
+  //funccheckaccess - user check
+  const fetchCanBuy = async function () {
     contract.methods.checkSales().call().then(setCanBuy);
-    contract.methods.totSales().call().then(setTotSales);
+    contract.methods.totSales().call().then(setTotalSales);
   };
 
-  //funchandlepurchase - purchase
-  const handlePurchase = () => {
+  //funchandlecanbuy - permission user
+  const handleBuy = async function () {
     if (accounts.length > 0) {
       try {
         const transaction = contract.methods.handlePurchase().send({
           from: accounts[0],
-          valur: web3.utils.toWei("0.02", "ether"),
+          value: web3.utils.toWei("0.02", "ether"),
         });
         checkAccess();
-        handleCanBuy();
+        fetchCanBuy();
       } catch (e) {
         alert(e.message);
       }
     } else {
-      alert("Something Went Wrong");
+      alert("Something Went Wrong :(");
     }
   };
 
@@ -72,7 +72,7 @@ export default function Home() {
         alert("Something Went Wrong :(");
       }
     } else {
-      alert("Oops!, you must be logged in :(");
+      alert("must be logged in");
     }
   };
 
@@ -82,23 +82,27 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
+    // check access if we change accounts
     checkAccess();
-    handleCanBuy();
+    fetchCanBuy();
   }, [accounts]);
 
-  return (
-    <>
-      <main>
-        <Hero
-          accounts={accounts}
-          handleConnect={handleConnect}
-          handlePurchase={handlePurchase}
-          hasAccess={hasAccess}
-          handleDownload={handleDownload}
-          totSales={totSales}
-          canBuy={canBuy}
-        />
-      </main>
-    </>
+  return (                    
+      <>
+        <main>
+          <div>
+            <Header />
+            <Hero
+              accounts={accounts}
+              connect={handleConnect}
+              buy={handleBuy}
+              canBuy={canBuy}
+              hasAccess={hasAccess}
+              download={handleDownload}
+              totalSales={totalSales}
+            />
+          </div>
+        </main>
+      </>    
   );
 }
