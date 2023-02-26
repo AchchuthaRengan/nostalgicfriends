@@ -36,6 +36,7 @@ export default function Home() {
 
   //funchandlepurchase - purchase
   const handlePurchase = () => {
+    handleConnect();
     if (accounts.length > 0) {
       try {
         const transaction = contract.methods.handlePurchase().send({
