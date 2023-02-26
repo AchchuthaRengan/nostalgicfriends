@@ -1,6 +1,14 @@
-import NavBar from '../components/NavBar';
+import Header from "@/components/Header";
+import NavBar from "../components/NavBar";
 export default function Home() {
-    return (
-        <NavBar/>
-    )
+  return (
+    <>
+      <main>
+        <div>
+          <Header />
+          <NavBar />
+        </div>
+      </main>
+    </>
+  );
 }
