@@ -2,3 +2,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+
+html,
+body {
+    padding: 0;
+    margin: 0;
+    font-family: 'Gloock', serif;
+    font-size: 18px;
+    font-weight: bolder;
+    color: rgb(21, 20, 19);
+    text-align: center;
+    line-height: 5em;
+}
